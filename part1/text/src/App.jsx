@@ -8,16 +8,28 @@ const Hello = (props) => {
 }
 
 const App = () => {
-  console.log("hello from component")
+  const arto = {
+    name: 'Arto Hellas',
+    age: 35,
+    education: 'PhD',
 
-  const friends = [ 'Tan', 'Yuxin' ]
+    greet: function() {
+      console.log('hello, my name is ' + this.name)
+    },
+    doAddition: function(a, b) {
+    console.log(a + b)
+    },
+  }
+
+  arto.ageUp = function() {
+    this.age++
+    console.log('I am now ' + this.age + ' years old.')
+  }
+
+  arto.greet()  // "hello, my name is Arto Hellas" gets printed
+  arto.ageUp()
   return (
     <>
-      <h1>Greetings</h1>
-      <Hello name='Ka Ming' trait='anxious'/>
-      <Hello name= 'Leo' trait='industrious'/>
-      <Hello name='Andy' trait='chill'/>
-      <p>{friends}</p>
     </>
   )
 }
