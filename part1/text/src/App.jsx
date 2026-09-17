@@ -26,8 +26,13 @@ const App = () => {
     console.log('I am now ' + this.age + ' years old.')
   }
 
+  arto.doAddition(1,4)
+  const referencetoAddition = arto.doAddition
+  referencetoAddition(10,20)
+
   arto.greet()  // "hello, my name is Arto Hellas" gets printed
-  arto.ageUp()
+  arto.ageUp() 
+  setTimeout(arto.greet, 1000)
   return (
     <>
     </>
