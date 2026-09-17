@@ -1,5 +1,4 @@
-const App = (props) => {
-  const {counter} = props
+const App = ({counter}) => {
   return (
     <div>{counter}</div>
   )
