@@ -1,41 +1,29 @@
 const Hello = (props) => {
-  console.log(props)
-  return(
+  const name = props.name
+  const age = props.age
+
+  const bornYear = () => new Date().getFullYear() - age
+
+  return (
     <div>
-      <p>Hello {props.name}, you are {props.trait}</p>
+      <p>
+        Hello {name}, you are {age} years old
+      </p>
+      <p>So you were probably born in the year {bornYear()}</p>
     </div>
   )
 }
 
 const App = () => {
-  const arto = {
-    name: 'Arto Hellas',
-    age: 35,
-    education: 'PhD',
+  const name = 'Peter'
+  const age = 10
 
-    greet: function() {
-      console.log('hello, my name is ' + this.name)
-    },
-    doAddition: function(a, b) {
-    console.log(a + b)
-    },
-  }
-
-  arto.ageUp = function() {
-    this.age++
-    console.log('I am now ' + this.age + ' years old.')
-  }
-
-  arto.doAddition(1,4)
-  const referencetoAddition = arto.doAddition
-  referencetoAddition(10,20)
-
-  arto.greet()  // "hello, my name is Arto Hellas" gets printed
-  arto.ageUp() 
-  setTimeout(arto.greet, 1000)
   return (
-    <>
-    </>
+    <div>
+      <h1>Greetings</h1>
+      <Hello name="Maya" age={26 + 10} />
+      <Hello name={name} age={age} />
+    </div>
   )
 }
 
