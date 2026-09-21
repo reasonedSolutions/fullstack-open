@@ -1,17 +1,7 @@
 import { useState } from 'react'
-const Display = (props) => {
-  return (
-    <div>{props.count}</div>
-  )
-}
+const Display = ({count}) => <div>{count}</div>
 
-const Button = (props) => {
-  return(
-    <button onClick={props.handler}>
-      {props.text}
-    </button> 
-  )
-}
+const Button = ({handler, text}) => <button onClick={handler}>{text}</button> 
 
 const App = () => {
   const [count, setCount] = useState(0)
