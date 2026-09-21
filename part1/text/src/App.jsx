@@ -1,36 +1,19 @@
-import { useState } from 'react'
-const Display = ({count}) => <div>{count}</div>
-
-const Button = ({handler, text}) => <button onClick={handler}>{text}</button> 
-
 const App = () => {
-  const [count, setCount] = useState(0)
-  console.log('rendering with counter value', count)
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
 
-  const addOne = () => {
-    console.log('increasing, value before', count)
-    setCount(count + 1)
-  }
-
-  const resetZero = () => {
-    console.log('resetting to zero, value before', count)
-    setCount(0)
-  }
-
-  const subtractOne = () => {
-    console.log('decreasing, value before', count)
-    setCount(count - 1)
-  }
-
-  return(
+  return (
     <div>
-      <Display count={count}/>
-      <Button handler={addOne} text='plus'/>
-      <Button handler={subtractOne} text='minus'/>
-      <Button handler={resetZero} text='reset'/>
+      {left}
+      <button onClick={() => setLeft(left + 1)}>
+        left
+      </button>
+      <button onClick={() => setRight(right + 1)}>
+        right
+      </button>
+      {right}
     </div>
   )
-
 }
 
 export default App
