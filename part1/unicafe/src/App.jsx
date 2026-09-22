@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
-const Header = (props) => {
+const Header = ({text}) => {
   return (
-    <h2>{props.text}</h2>
+    <h2>{text}</h2>
   )
 }
 
-const Button = (props) => {
+const Button = ({onClick, text}) => {
   return (
-    <button onClick={props.onClick}>{props.text}</button>
+    <button onClick={onClick}>{text}</button>
   )
 }
 
@@ -23,19 +23,44 @@ const StatLine = (props) => {
   )
 }
 
+const Statistics = ({stats, all}) => {
+  if (!all) {
+    return (
+      <div>No feedback given</div>
+    )
+  }
+  else {
+    return (
+      <div>
+        {stats.map(stat => <StatLine key={stat.type} {...stat} />)}
+      </div>
+    )
+  }
+}
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-  const [total, setTotal] = useState(0)
+  const [all, setAll] = useState(0)
 
   const incrementValue = (variable, setter) => {
-    setTotal(total + 1)
+    setAll(all + 1)
     return(
       setter(variable + 1)
     )
   }
+
+  const average = (good-bad)/(all)
+  const percentage = (good/all)*100
+  const stats = [
+    { type:'good', number:good },
+    { type:'neutral', number:neutral },
+    { type:'bad', number:bad },
+    { type:'average', number:average },
+    { type:'percentage', number:percentage, sign:'%' },
+  ]
 
   return (
     <>
@@ -43,15 +68,14 @@ const App = () => {
       <Button onClick={() => {incrementValue(good, setGood)}} text='good'/>
       <Button onClick={() => {incrementValue(neutral, setNeutral)}} text='neutral'/>
       <Button onClick={() => {incrementValue(bad, setBad)}} text='bad'/>
-      {/* <Button onClick={() => {setNeutral(neutral + 1)}} text='neutral'/> */}
-      {/* <Button onClick={() => {setBad(bad + 1)}} text='bad'/> */}
       <Header text='statistics'/>
-      <StatLine type='good' number={good}/>
+      {/* <StatLine type='good' number={good}/>
       <StatLine type='neutral' number={neutral}/>
       <StatLine type='bad' number={bad}/>
       <StatLine type='all' number={total}/>
       <StatLine type='average' number={(good-bad)/(total)}/>
-      <StatLine type='percentage' number={(good/total)*100} sign='%'/>
+      <StatLine type='percentage' number={(good/total)*100} sign='%'/> */}
+      <Statistics stats={stats} all={all}/>
     </>
   )
 }
