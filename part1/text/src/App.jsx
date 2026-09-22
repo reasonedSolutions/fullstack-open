@@ -47,6 +47,7 @@ const App = () => {
       <Button onClick={handleRightClick} text={'right'}/>
       {right}
       <p>Total clicks: {total}</p>
+
       <History allClicks={allClicks}/>
     </div>
   )
