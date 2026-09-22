@@ -26,7 +26,7 @@ const StatLine = (props) => {
 const Statistics = ({stats, all}) => {
   if (!all) {
     return (
-      <div>No feedback given</div>
+      <div>No feedback given.</div>
     )
   }
   else {
