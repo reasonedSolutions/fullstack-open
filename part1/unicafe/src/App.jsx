@@ -69,12 +69,6 @@ const App = () => {
       <Button onClick={() => {incrementValue(neutral, setNeutral)}} text='neutral'/>
       <Button onClick={() => {incrementValue(bad, setBad)}} text='bad'/>
       <Header text='statistics'/>
-      {/* <StatLine type='good' number={good}/>
-      <StatLine type='neutral' number={neutral}/>
-      <StatLine type='bad' number={bad}/>
-      <StatLine type='all' number={total}/>
-      <StatLine type='average' number={(good-bad)/(total)}/>
-      <StatLine type='percentage' number={(good/total)*100} sign='%'/> */}
       <Statistics stats={stats} all={all}/>
     </>
   )
