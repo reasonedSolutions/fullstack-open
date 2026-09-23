@@ -19,7 +19,10 @@ const StatLine = (props) => {
     )
   }
   return(
-    <div>{props.type} {props.number} {props.sign}</div>
+    <tr>
+      <td>{props.type}</td> 
+      <td>{props.number} {props.sign}</td>
+    </tr>
   )
 }
 
@@ -31,9 +34,9 @@ const Statistics = ({stats, all}) => {
   }
   else {
     return (
-      <div>
+      <table>
         {stats.map(stat => <StatLine key={stat.type} {...stat} />)}
-      </div>
+      </table>
     )
   }
 }
