@@ -37,30 +37,21 @@ const App = () => {
     }
   }
 
-  if (greatest == -1) {
-    return (
-      <div>
-        <AnecdoteDisplay 
-          text='Anecdote of the day' 
-          anecdote={anecdotes[selected]} 
-          votes={votes[selected]}/>
-        <button onClick={handleVote}>vote up</button>
-        <button onClick={setRandom}>next anecdote</button>
-      </div>
-    )
-  }
-  
-  else return (
+  return (
     <div>
-      <AnecdoteDisplay 
-        text='Anecdote of the day' 
-        anecdote={anecdotes[selected]} 
-        votes={votes[selected]}/>
+      <AnecdoteDisplay
+        text='Anecdote of the day'
+        anecdote={anecdotes[selected]}
+        votes={votes[selected]} />
       <button onClick={handleVote}>vote up</button>
       <button onClick={setRandom}>next anecdote</button>
-      <h1>Anecdote with most votes</h1>
-      <div>{anecdotes[greatest]}</div>
-      <div>has {votes[greatest]} votes</div>
+
+      { greatest !== -1 && (
+        <AnecdoteDisplay
+          text='Anecdote with most votes'
+          anecdote={anecdotes[greatest]}
+          votes={votes[greatest]} />
+      )}
     </div>
   )
 }
