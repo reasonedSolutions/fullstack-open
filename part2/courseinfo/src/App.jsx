@@ -1,30 +1,28 @@
-const Header = (props) => {
-  return (
-    <h1>{props.name}</h1>
-  )
-}
-
-const Content = (props) => {
+const Course = ({course}) => {
   return (
     <div>
-      <Part name={props.parts[0].name} exercises={props.parts[0].exercises}/>
-      <Part name={props.parts[1].name} exercises={props.parts[1].exercises}/>
-      <Part name={props.parts[2].name} exercises={props.parts[2].exercises}/>
+      <Header name={course.name}/>
+      <Content parts={course.parts}/>
+      <Total parts={course.parts}/>
     </div>
   )
 }
 
-const Part = (props) => {
+const Header = ({name}) => ( <h1>{name}</h1>)
+
+const Content = ({parts}) => {
   return (
-    <p>
-      {props.name} {props.exercises}
-    </p>
+    <div>
+      {parts.map(p => <Part key={p.name} name={p.name} exercises={p.exercises}/>)}
+    </div>
   )
 }
 
-const Total = (props) => {
+const Part = ({name, exercises}) =>( <p>{name} {exercises}</p>)
+
+const Total = ({parts}) => {
   var total = 0
-  props.parts.forEach(p => total += p.exercises)
+  parts.forEach(p => total += p.exercises)
 
   return (
     <p>Number of exercises {total}</p>
@@ -46,16 +44,16 @@ const App = () => {
       {
         name: 'State of a component',
         exercises: 14
+      },
+      {
+        name: 'Javascript arrays',
+        exercises: 5
       }
     ]
   }
 
   return (
-    <div>
-      <Header name={course.name}/>
-      <Content parts={course.parts}/>
-      <Total parts={course.parts}/>
-    </div>
+    <Course course={course}/>
   )
 }
 
