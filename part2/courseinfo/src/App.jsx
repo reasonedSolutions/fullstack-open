@@ -25,7 +25,7 @@ const Total = ({parts}) => {
   parts.forEach(p => total += p.exercises)
 
   return (
-    <p>Number of exercises {total}</p>
+    <p><strong>total of {total} exercises</strong></p>
   )
 }
 
@@ -46,8 +46,8 @@ const App = () => {
         exercises: 14
       },
       {
-        name: 'Javascript arrays',
-        exercises: 5
+        name: 'Redux',
+        exercises: 11
       }
     ]
   }
