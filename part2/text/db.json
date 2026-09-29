@@ -27,8 +27,18 @@
     },
     {
       "content": "DotA 2 is very hard",
-      "important": true,
+      "important": false,
       "id": "YWnWo-Bnw68"
+    },
+    {
+      "content": "getting along with others is hard",
+      "important": false,
+      "id": "2wi0Qz4Udaw"
+    },
+    {
+      "content": "sharpening my social skills is hard",
+      "important": false,
+      "id": "Auf5xSgAtQw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
