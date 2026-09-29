@@ -8,7 +8,7 @@
     {
       "id": "2",
       "content": "Browser can execute only JavaScript",
-      "important": false
+      "important": true
     },
     {
       "id": "3",
@@ -17,12 +17,12 @@
     },
     {
       "content": "HTML is fuckin' hard",
-      "important": false,
+      "important": true,
       "id": "19cTL-tHlWk"
     },
     {
       "content": "JSX is a little confusing",
-      "important": false,
+      "important": true,
       "id": "Bw4fErFWDHY"
     },
     {
