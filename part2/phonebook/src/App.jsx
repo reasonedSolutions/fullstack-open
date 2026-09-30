@@ -1,39 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-
-const NameFilter = ({nameFilter, handler}) => (
-  <div>Filter phonebook by name: <input value={nameFilter} onChange={handler}/></div>
-)
-
-const EntryForm = ({newName, handleNameChange, newNumber, handleNumberChange, handleNewSubmission}) => {
-  return (
-    <form onSubmit={handleNewSubmission}>
-      <div>
-        name: <input value={newName} onChange={handleNameChange}/>
-      </div>
-      <div>
-        number: <input value={newNumber} onChange={handleNumberChange}/>
-      </div>
-      <div>
-        <button type="submit">add</button>
-      </div>
-    </form>
-  )
-}
-
-const Display = ({persons, nameFilter}) => {
-  return (
-    <ul>
-      {persons
-        .filter(person => person.name.toLowerCase().includes(nameFilter.toLowerCase()))
-        .map(person => <Person key={person.name} person={person}/>)}
-    </ul>
-  )
-}
-
-const Person = (
-  {person}) => (<li>{person.name} {person.number}</li>
-)
+import NameFilter from './components/NameFilter'
+import EntryForm from './components/EntryForm'
+import DisplayNames from './components/DisplayNames'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -87,7 +56,7 @@ const App = () => {
       <h2>Add new entry</h2>
       <EntryForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} handleNewSubmission={handleNewSubmission}/>
       <h2>Numbers</h2>
-      <Display persons={persons} nameFilter={nameFilter}/>
+      <DisplayNames persons={persons} nameFilter={nameFilter}/>
     </>
   )
 }
