@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Notification from './components/Notification'
 import NameFilter from './components/NameFilter'
 import EntryForm from './components/EntryForm'
 import DisplayNames from './components/DisplayNames'
@@ -9,6 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     PersonService
@@ -29,6 +31,10 @@ const App = () => {
         PersonService.update(existingPerson.id, updatedPerson)
           .then(data => {
             setPersons(persons.map(p => p.id === existingPerson.id ? updatedPerson : p))
+            setMessage(`${data.name} updated`)
+            setTimeout(() => {
+              setMessage('')
+            }, 5000)
           })
           .catch(e => alert(`Update failed, reason: ${e.message}`))
       }
@@ -40,9 +46,14 @@ const App = () => {
       }
       PersonService
         .create(newPerson)
-        .then(data => setPersons(persons.concat(data)))
+        .then(data => {
+          setPersons(persons.concat(data))
+          setMessage(`${data.name} added`)
+          setTimeout(() => {
+            setMessage('')
+          }, 5000)})
         .catch((e) => {
-          alert(`Delete failed, reason: ${e.message}`)
+          alert(`Add failed, reason: ${e.message}`)
         })
     }
     setNewName('')
@@ -77,6 +88,7 @@ const App = () => {
   return (
     <>
       <h1>Phonebook</h1>
+      <Notification message={message} />
       <NameFilter nameFilter={nameFilter} handler={handleFilterChange}/>
       <h2>Add new entry</h2>
       <EntryForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} handleNewSubmission={handleNewSubmission}/>
