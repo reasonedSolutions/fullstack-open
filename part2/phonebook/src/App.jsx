@@ -49,6 +49,10 @@ const App = () => {
     setNameFilter(event.target.value)
   }
 
+  const handleDelete = (event) => {
+    console.log(event)
+  }
+
   return (
     <>
       <h1>Phonebook</h1>
@@ -56,7 +60,7 @@ const App = () => {
       <h2>Add new entry</h2>
       <EntryForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} handleNewSubmission={handleNewSubmission}/>
       <h2>Numbers</h2>
-      <DisplayNames persons={persons} nameFilter={nameFilter}/>
+      <DisplayNames persons={persons} nameFilter={nameFilter} handleDelete={handleDelete}/>
     </>
   )
 }

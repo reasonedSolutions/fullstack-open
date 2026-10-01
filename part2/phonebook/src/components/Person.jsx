@@ -1,5 +1,5 @@
 const Person = (
-  {person}) => (<li>{person.name} {person.number}</li>
+  {person, handleDelete}) => (<li>{person.name} {person.number} <button onClick={handleDelete}>delete {person.name}</button></li>
 )
 
 export default Person
