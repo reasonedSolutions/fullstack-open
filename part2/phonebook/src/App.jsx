@@ -20,9 +20,18 @@ const App = () => {
 
   const handleNewSubmission = (event) => {
     event.preventDefault()
-    const newNameExists = (persons.filter(p => p.name === newName).length !== 0)
-    if (newNameExists) {
-      alert(`${newName} has already been added to the phonebook`)
+    const existingPerson = persons.find(p => p.name === newName)
+    const confirmReplace = name => 
+      confirm(`${name} has already been added to the phonebook. Replace number?`)
+    if (existingPerson) {
+      if (confirmReplace(newName)) {
+        const updatedPerson = {...existingPerson, number: newNumber}
+        PersonService.update(existingPerson.id, updatedPerson)
+          .then(data => {
+            setPersons(persons.map(p => p.id === existingPerson.id ? updatedPerson : p))
+          })
+          .catch(e => alert(`Update failed, reason: ${e.message}`))
+      }
     }
     else {
       const newPerson = {
@@ -32,6 +41,9 @@ const App = () => {
       PersonService
         .create(newPerson)
         .then(data => setPersons(persons.concat(data)))
+        .catch((e) => {
+          alert(`Delete failed, reason: ${e.message}`)
+        })
     }
     setNewName('')
     setNewNumber('')
