@@ -49,8 +49,17 @@ const App = () => {
     setNameFilter(event.target.value)
   }
 
-  const handleDelete = (event) => {
-    console.log(event)
+  const handleDelete = (person) => {
+    if ((window.confirm(`Are you sure you want to delete ${person.name}?`))){
+      PersonService
+        .remove(person.id)
+        .then(response => {
+          setPersons(persons.filter(p => p.id !== person.id))
+        })
+        .catch((e) => {
+          alert(`Delete failed, reason: ${e.message}`)
+        })
+    }
   }
 
   return (
