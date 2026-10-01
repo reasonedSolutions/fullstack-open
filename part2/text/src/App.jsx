@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Note from './components/Note.jsx'
 import noteService from './services/notes.jsx'
+import Notification from './components/Notification.jsx'
 
 const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('a new note...')
   const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     noteService
@@ -48,9 +49,13 @@ const App = () => {
         setNotes(notes.map(note => note.id === id ? toggledNote : note))
       })
       .catch(error => {
-      alert(
-        `the note '${note.content}' was already deleted from server`
-      )
+        console.log(note.content)
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       setNotes(notes.filter(n => n.id !== id))
     })
   }
@@ -58,6 +63,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage} />
       <ul>
         {notesToShow.map(note => 
           <Note key={note.id} note={note} toggleImportanceOf={() => toggleImportanceOf(note.id)}/>
