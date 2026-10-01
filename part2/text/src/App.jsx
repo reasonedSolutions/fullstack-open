@@ -63,6 +63,7 @@ const App = () => {
           <Note key={note.id} note={note} toggleImportanceOf={() => toggleImportanceOf(note.id)}/>
         )}
       </ul>
+      <button onClick={() => setShowAll(!showAll)}>toggle showing important notes</button>
       <form onSubmit={addNote}>
         <input value={newNote} onChange={handleNoteChange}/>
         <button type="submit">save</button>
