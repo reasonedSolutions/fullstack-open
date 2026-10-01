@@ -36,7 +36,12 @@ const App = () => {
               setMessage('')
             }, 5000)
           })
-          .catch(e => alert(`Update failed, reason: ${e.message}`))
+          .catch(e => {
+            setMessage(`Information of ${existingPerson.name} has already been deleted from server`)
+            setTimeout(() => {
+              setMessage('')
+            }, 5000)
+          })
       }
     }
     else {
@@ -52,9 +57,6 @@ const App = () => {
           setTimeout(() => {
             setMessage('')
           }, 5000)})
-        .catch((e) => {
-          alert(`Add failed, reason: ${e.message}`)
-        })
     }
     setNewName('')
     setNewNumber('')
