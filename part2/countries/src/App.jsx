@@ -1,17 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
-const SearchBox = ({search, handleSearchChange}) => {
-  return (
-    <form>
-      find countries<input placeholder={search} onChange={handleSearchChange}></input>
-    </form>
-  )
-}
+import SearchBox from './components/SearchBox'
+import DisplayBox from './components/DisplayBox'
 
 function App() {
   const [countries, setCountries] = useState(null)
-  const [search, setSearch] = useState('enter country name')
+  const [search, setSearch] = useState(null)
 
   useEffect(() => {
     axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
@@ -19,13 +13,13 @@ function App() {
   }, [])
 
   const handleSearchChange = (event) => {
-    console.log(event.target.value)
     setSearch(event.target.value)
   }
 
   return (
     <div>
-      <SearchBox search={search} handleSearchChange={handleSearchChange}/>
+      <SearchBox handleSearchChange={handleSearchChange} />
+      {countries ? <DisplayBox countries={countries} search={search} /> : <div>fetching countries...</div>}
     </div>
   )
 }
