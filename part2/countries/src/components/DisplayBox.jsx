@@ -1,3 +1,4 @@
+import DisplayLine from './DisplayLine'
 import CountryBox from './CountryBox'
 
 const DisplayBox = ({countries, search}) => {
@@ -14,7 +15,7 @@ const DisplayBox = ({countries, search}) => {
     else if (filteredLength > 1) {
       return (
         <ul>
-          {filteredCountries.map(f => <li key={f.name.common}>{f.name.common}</li>)}
+          {filteredCountries.map(f => (<DisplayLine key={f.name.common} country={f} />))}
         </ul>
       )
     }
