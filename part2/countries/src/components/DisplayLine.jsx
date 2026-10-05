@@ -3,18 +3,16 @@ import { useState } from 'react'
 
 const DisplayLine = ({country}) => {
     const [show, setShow] = useState(false)
-    console.log(`show ${country.name.common} ==> `, show);
 
     return (
         <li>
             <div>
                 {country.name.common}
                 <button onClick={() => {
-                    console.log(`${country.name.common} clicked`)
                     setShow(!show)
-                }}>Show</button>
-            </div>
+                }}>{show ? 'Hide' : 'Show'}</button>
             {show ? <CountryBox country={country} /> : <></>}
+            </div>
         </li>
     )
 }
