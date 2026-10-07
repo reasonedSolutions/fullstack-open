@@ -42,16 +42,22 @@ app.get('/info', (request, response) => {
 })
 
 app.get('/api/persons/:id', (req, res) => {
-  const searchId = req.params.id
-  const data = persons.find(p => p.id === searchId)
+  const data = persons.find(p => p.id === req.params.id)
   if (data) {
     res.json(data)
   }
   else {
     res.status(404)
-      .send(`No contact found at ID# ${searchId}`)
+      .send(`No contact found at ID # ${req.params.id}.`)
       .end
   }
+})
+
+app.delete('/api/persons/:id', (req, res) => {
+  persons = persons.filter(p => p.id !== req.params.id)
+  res.status(204)
+    .send(`Contact at ${req.params.id} deleted.`)
+    .end
 })
 
 const PORT = 3001
