@@ -63,10 +63,27 @@ app.delete('/api/persons/:id', (req, res) => {
 })
 
 app.post('/api/persons', (req, res) => {
-  newPerson = {"id": generateId(), ...req.body }
-  console.log("newPerson ==> ", newPerson);
-  persons = persons.concat(newPerson)
-  res.status(200)
+  if (!req.body.name) {
+    res.status(400)
+      .json({ "error": "Name missing"})
+      .end
+  }
+  else if (!req.body.number) {
+    res.status(400)
+      .json({ "error": "Number missing"})
+      .end
+  }
+  else if (persons.find(p => p.name === req.body.name)) {
+    res.status(400)
+      .json({ "error": "Name already exists in phonebook. missing"})
+      .end
+  }
+  else {
+    newPerson = {"id": generateId(), ...req.body }
+    console.log("newPerson ==> ", newPerson);
+    persons = persons.concat(newPerson)
+    res.status(200)
+  }
 })
 
 const PORT = 3001
