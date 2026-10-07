@@ -41,6 +41,19 @@ app.get('/info', (request, response) => {
   `)
 })
 
+app.get('/api/persons/:id', (req, res) => {
+  const searchId = req.params.id
+  const data = persons.find(p => p.id === searchId)
+  if (data) {
+    res.json(data)
+  }
+  else {
+    res.status(404)
+      .send(`No contact found at ID# ${searchId}`)
+      .end
+  }
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
