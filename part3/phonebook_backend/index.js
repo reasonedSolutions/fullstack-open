@@ -1,7 +1,9 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
+app.use(morgan('tiny'))
 
 let persons = [
     { 
@@ -80,9 +82,10 @@ app.post('/api/persons', (req, res) => {
   }
   else {
     newPerson = {"id": generateId(), ...req.body }
-    console.log("newPerson ==> ", newPerson);
     persons = persons.concat(newPerson)
     res.status(200)
+      .json(newPerson)
+      .end
   }
 })
 
