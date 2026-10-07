@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 let notes = [
@@ -20,6 +21,7 @@ let notes = [
 ]
 
 app.use(express.json())
+app.use(cors())
 
 const generateId = () => {
   const maxId =
@@ -81,6 +83,21 @@ app.delete('/api/notes/:id', (request, response) => {
   notes = notes.filter((note) => note.id !== id)
 
   response.status(204).end()
+})
+
+app.put('/api/notes/:id', (request, response) => {
+  const incoming = request.body
+  if (notes.find(n => n.id === incoming.id)) {
+    notes = notes.map( n => n.id === incoming.id ? incoming : n )
+    response.status(200)
+      .json(incoming)
+      .end
+  }
+  else {
+    response.status(400)
+      .json({ "error": "That note was not found."})
+      .end
+  }
 })
 
 const unknownEndpoint = (request, response) => {

@@ -53,7 +53,7 @@ const App = () => {
         setNotes(notes.map(note => note.id === id ? toggledNote : note))
       })
       .catch(error => {
-        console.log(note.content)
+        //this part is not good; handles all errors in only one way
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
         )
