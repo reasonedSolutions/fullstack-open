@@ -26,6 +26,8 @@ let persons = [
     }
 ]
 
+const generateId = () => Math.floor(Math.random() * 10000).toString()
+
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
@@ -58,6 +60,13 @@ app.delete('/api/persons/:id', (req, res) => {
   res.status(204)
     .send(`Contact at ${req.params.id} deleted.`)
     .end
+})
+
+app.post('/api/persons', (req, res) => {
+  newPerson = {"id": generateId(), ...req.body }
+  console.log("newPerson ==> ", newPerson);
+  persons = persons.concat(newPerson)
+  res.status(200)
 })
 
 const PORT = 3001
