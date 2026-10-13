@@ -1,7 +1,6 @@
 import axios from 'axios'
 const baseUrl = process.env.VERCEL_BACKEND_URL || 'http://localhost:3001/api/notes'
-console.log("import.meta.env.VERCEL_BACKEND_URL  ==> ", import.meta.env.VERCEL_BACKEND_URL );
-console.log("baseUrl ==> ", baseUrl);
+console.log("process.env.VERCEL_BACKEND_URL ==> ", process.env.VERCEL_BACKEND_URL);
 
 const getAll = () => {
   const request = axios.get(baseUrl)
