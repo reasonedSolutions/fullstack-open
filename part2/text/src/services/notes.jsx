@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = process.env.VITE_VERCEL_BACKEND_URL || 'http://localhost:3001/api/notes'
+const baseUrl = process.env.VITE_VERCEL_BACKEND_URL
 console.log("process.env.VITE_VERCEL_BACKEND_URL ==> ", process.env.VITE_VERCEL_BACKEND_URL);
 
 const getAll = () => {
