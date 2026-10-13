@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = process.env.VITE_VERCEL_BACKEND_URL
+const baseUrl = process.env.VITE_VERCEL_BACKEND_URL || 'https://fullstack-open-part3-text.vercel.app/api/notes'
 console.log("process.env.VITE_VERCEL_BACKEND_URL ==> ", process.env.VITE_VERCEL_BACKEND_URL);
 
 const getAll = () => {
