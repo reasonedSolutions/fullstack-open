@@ -24,3 +24,4 @@ const update = (id, newObject) => {
 export default { getAll, create, update }
 
 /* some changes to be squash merged */
+/* some more changes to be squash merged */
