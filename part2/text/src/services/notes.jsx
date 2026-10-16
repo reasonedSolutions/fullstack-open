@@ -1,5 +1,6 @@
 import axios from 'axios'
 const baseUrl = import.meta.env.VITE_VERCEL_BACKEND_URL 
+console.log("import.meta.env.VITE_VERCEL_BACKEND_URL  ==> ", import.meta.env.VITE_VERCEL_BACKEND_URL );
 
 const getAll = () => {
   const request = axios.get(baseUrl)
