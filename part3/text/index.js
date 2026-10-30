@@ -20,7 +20,7 @@ let notes = [
 ]
 
 app.use(express.json())
-app.use(express.static('dist'))
+app.use(express.static('public'))
 
 const generateId = () => {
   const maxId =
