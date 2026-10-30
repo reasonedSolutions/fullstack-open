@@ -1,0 +1,14 @@
+GET https://fullstack-open-phonebook-backend.vercel.app/info
+
+###
+DELETE https://fullstack-open-phonebook-backend.vercel.app/api/persons/5
+
+###
+POST https://fullstack-open-phonebook-backend.vercel.app/api/persons
+Content-Type: application/json
+
+{
+    "id": "5",
+    "name": "Elizabeth Holmes",
+    "number": "990909090909"
+}

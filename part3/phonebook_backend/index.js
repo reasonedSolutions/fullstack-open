@@ -99,7 +99,7 @@ app.post('/api/persons', (req, res) => {
   }
   else if (persons.find(p => p.name === req.body.name)) {
     res.status(400)
-      .json({ "error": "Name already exists in phonebook. missing"})
+      .json({ "error": "Name already exists in phonebook."})
       .end
   }
   else {
