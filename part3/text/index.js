@@ -40,11 +40,11 @@ app.use(requestLogger)
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
-  console.log(process.env.MONGODB_DB_USER_PASSWORD)
 })
 
 app.get('/api/notes', (request, response) => {
   response.json(notes)
+  console.log(process.env.MONGODB_DB_USER_PASSWORD)
 })
 
 app.get('/api/notes/:id', (request, response) => {
