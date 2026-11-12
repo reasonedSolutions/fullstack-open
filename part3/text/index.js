@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const app = express()
 
 let notes = [
@@ -18,6 +19,19 @@ let notes = [
     important: true,
   },
 ]
+
+const password = process.argv[2]
+const url = `mongodb+srv://wongkami:${password}@cluster0.dfvzkgp.mongodb.net/noteApp`
+
+mongoose.set('strictQuery', false)
+mongoose.connect(url, {family: 4})
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
 
 app.use(express.json())
 app.use(express.static('public'))
@@ -43,8 +57,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
-  console.log(process.env.MONGODB_DB_USER_PASSWORD)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 app.get('/api/notes/:id', (request, response) => {
