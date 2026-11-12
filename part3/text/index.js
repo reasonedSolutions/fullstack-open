@@ -1,6 +1,6 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const app = express()
+const Note = require('./models/note')
 
 let notes = [
   {
@@ -19,27 +19,6 @@ let notes = [
     important: true,
   },
 ]
-
-const password = process.argv[2]
-const url = `mongodb+srv://wongkami:${password}@cluster0.dfvzkgp.mongodb.net/noteApp`
-
-mongoose.set('strictQuery', false)
-mongoose.connect(url, {family: 4})
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-})
-
-const Note = mongoose.model('Note', noteSchema)
-
-noteSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = document._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
 
 app.use(express.json())
 app.use(express.static('public'))
