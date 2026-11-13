@@ -4,18 +4,18 @@ const Note = require('./models/note')
 
 let notes = [
   {
-    id: '1',
+    id: '6af63b084b84036021667fa1',
     content: 'HTML is easy',
     important: true,
   },
   {
-    id: '2',
-    content: 'Browser can execute only JavaScript',
-    important: false,
+    id: '6af63b152225c0c250906937',
+    content: 'CSS is hard',
+    important: true,
   },
   {
-    id: '3',
-    content: 'GET and POST are the most important methods of HTTP protocol',
+    id: '6af63b223b7fc8a439dff67e',
+    content: 'Mongoose makes things easy',
     important: true,
   },
 ]
