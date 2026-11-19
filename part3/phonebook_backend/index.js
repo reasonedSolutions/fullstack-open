@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
+const Person = require('./models/person')
 
 app.use(express.json())
 app.use(morgan(function (tokens, req, res) {
@@ -27,7 +28,7 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger)
 
-let persons = [
+let people = [
     { 
       "id": "1",
       "name": "Arto Hellas", 
@@ -52,14 +53,14 @@ let persons = [
 
 const generateId = () => Math.floor(Math.random() * 10000).toString()
 
-app.get('/api/persons', (request, response) => {
-  response.json(persons)
+app.get('/api/people', (request, response) => {
+  Person.find({}).then( people => response.json(people))
 })
 
 app.get('/info', (request, response) => {
   response.send(`
     <p>
-      Phonebook has info for ${persons.length} people
+      Phonebook has info for ${people.length} people
     </p>
     <p>
       ${new Date()}
@@ -67,8 +68,8 @@ app.get('/info', (request, response) => {
   `)
 })
 
-app.get('/api/persons/:id', (req, res) => {
-  const data = persons.find(p => p.id === req.params.id)
+app.get('/api/people/:id', (req, res) => {
+  const data = people.find(p => p.id === req.params.id)
   if (data) {
     res.json(data)
   }
@@ -79,14 +80,14 @@ app.get('/api/persons/:id', (req, res) => {
   }
 })
 
-app.delete('/api/persons/:id', (req, res) => {
-  persons = persons.filter(p => p.id !== req.params.id)
+app.delete('/api/people/:id', (req, res) => {
+  people = people.filter(p => p.id !== req.params.id)
   res.status(204)
     .send(`Contact at ${req.params.id} deleted.`)
     .end
 })
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/people', (req, res) => {
   if (!req.body.name) {
     res.status(400)
       .json({ "error": "Name missing"})
@@ -97,14 +98,14 @@ app.post('/api/persons', (req, res) => {
       .json({ "error": "Number missing"})
       .end
   }
-  else if (persons.find(p => p.name === req.body.name)) {
+  else if (people.find(p => p.name === req.body.name)) {
     res.status(400)
       .json({ "error": "Name already exists in phonebook."})
       .end
   }
   else {
     newPerson = {"id": generateId(), ...req.body }
-    persons = persons.concat(newPerson)
+    people = people.concat(newPerson)
     res.status(200)
       .json(newPerson)
       .end
