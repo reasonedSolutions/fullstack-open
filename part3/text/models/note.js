@@ -8,13 +8,15 @@ mongoose.connect(url, {family: 4})
         console.log('connected to MongoDB')
     })
     .catch(error => {
-        console.log('error connectiong to MongoDB:', error.message)
+        console.log('error connecting to MongoDB:', error.message)
     })
 
 const noteSchema = new mongoose.Schema({
   content: String,
   important: Boolean,
 })
+
+//format objects returned by mongo
 
 noteSchema.set('toJSON', {
   transform: (document, returnedObject) => {
