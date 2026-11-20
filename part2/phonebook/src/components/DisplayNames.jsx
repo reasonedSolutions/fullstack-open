@@ -1,9 +1,9 @@
 import Person from './Person'
 
-const DisplayNames = ({persons, nameFilter, handleDelete}) => {
+const DisplayNames = ({people, nameFilter, handleDelete}) => {
   return (
     <ul>
-      {persons
+      {people
         .filter(person => person.name.toLowerCase().includes(nameFilter.toLowerCase()))
         .map(person => <Person key={person.name} person={person} handleDelete={handleDelete}/>)}
     </ul>

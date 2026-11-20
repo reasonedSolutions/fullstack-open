@@ -6,7 +6,7 @@ import DisplayNames from './components/DisplayNames'
 import PersonService from './services/PersonService'
 
 const App = () => {
-  const [persons, setPersons] = useState([])
+  const [people, setPeople] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
@@ -16,21 +16,21 @@ const App = () => {
     PersonService
       .getAll()
       .then(data => {
-        setPersons(data)
+        setPeople(data)
       })
   }, [])
 
   const handleNewSubmission = (event) => {
     event.preventDefault()
-    const existingPerson = persons.find(p => p.name === newName)
-    const confirmReplace = name => 
+    const existingPerson = people.find(p => p.name === newName)
+    const confirmReplace = name =>
       confirm(`${name} has already been added to the phonebook. Replace number?`)
     if (existingPerson) {
       if (confirmReplace(newName)) {
-        const updatedPerson = {...existingPerson, number: newNumber}
+        const updatedPerson = { ...existingPerson, number: newNumber }
         PersonService.update(existingPerson.id, updatedPerson)
           .then(data => {
-            setPersons(persons.map(p => p.id === existingPerson.id ? updatedPerson : p))
+            setPeople(people.map(p => p.id === existingPerson.id ? updatedPerson : p))
             setMessage(`${data.name} updated`)
             setTimeout(() => {
               setMessage('')
@@ -52,11 +52,12 @@ const App = () => {
       PersonService
         .create(newPerson)
         .then(data => {
-          setPersons(persons.concat(data))
+          setPeople(people.concat(data))
           setMessage(`${data.name} added`)
           setTimeout(() => {
             setMessage('')
-          }, 5000)})
+          }, 5000)
+        })
     }
     setNewName('')
     setNewNumber('')
@@ -75,11 +76,11 @@ const App = () => {
   }
 
   const handleDelete = (person) => {
-    if ((window.confirm(`Are you sure you want to delete ${person.name}?`))){
+    if ((window.confirm(`Are you sure you want to delete ${person.name}?`))) {
       PersonService
         .remove(person.id)
         .then(response => {
-          setPersons(persons.filter(p => p.id !== person.id))
+          setPeople(people.filter(p => p.id !== person.id))
         })
         .catch((e) => {
           alert(`Delete failed, reason: ${e.message}`)
@@ -91,11 +92,11 @@ const App = () => {
     <>
       <h1>Phonebook</h1>
       <Notification message={message} />
-      <NameFilter nameFilter={nameFilter} handler={handleFilterChange}/>
+      <NameFilter nameFilter={nameFilter} handler={handleFilterChange} />
       <h2>Add new entry</h2>
-      <EntryForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} handleNewSubmission={handleNewSubmission}/>
+      <EntryForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} handleNewSubmission={handleNewSubmission} />
       <h2>Numbers</h2>
-      <DisplayNames persons={persons} nameFilter={nameFilter} handleDelete={handleDelete}/>
+      <DisplayNames people={people} nameFilter={nameFilter} handleDelete={handleDelete} />
     </>
   )
 }
