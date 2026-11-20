@@ -104,11 +104,13 @@ app.post('/api/people', (req, res) => {
       .end
   }
   else {
-    newPerson = {"id": generateId(), ...req.body }
-    people = people.concat(newPerson)
-    res.status(200)
-      .json(newPerson)
-      .end
+    const newPerson = Person({
+      name: req.body.name,
+      number: req.body.number
+    })
+    newPerson.save().then( savedPerson => {
+      res.json(savedPerson)
+    })
   }
 })
 
