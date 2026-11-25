@@ -91,19 +91,22 @@ app.delete('/api/notes/:id', (request, response) => {
   response.status(204).end()
 })
 
-app.put('/api/notes/:id', (request, response) => {
-  const incoming = request.body
-  if (notes.find(n => n.id === incoming.id)) {
-    notes = notes.map( n => n.id === incoming.id ? incoming : n )
-    response.status(200)
-      .json(incoming)
-      .end
-  }
-  else {
-    response.status(400)
-      .json({ "error": "That note was not found."})
-      .end
-  }
+app.put('/api/notes/:id', (request, response, next) => {
+  const { content, important } = request.body
+  Note.findById(request.params.id)
+    .then( note => {
+      if (!note) {
+        return response.status(404).end()
+      }
+
+      note.content = content
+      note.important = important
+
+      return note.save().then((updatedNote) => {
+        response.json(updatedNote)
+      })
+    })
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
